@@ -2155,8 +2155,7 @@
       qsa(
         ".form-control"
       ).forEach((field) => {
-        field.addEventListener(
-          "input",
+        const refreshField =
           () => {
             clearFieldError(field);
             validateContactField(field);
@@ -2165,7 +2164,16 @@
               field,
               field.validity.valid
             );
-          }
+          };
+
+        field.addEventListener(
+          "input",
+          refreshField
+        );
+
+        field.addEventListener(
+          "change",
+          refreshField
         );
 
         field.addEventListener(
