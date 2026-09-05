@@ -321,10 +321,16 @@
         doc.head.appendChild(meta);
       }
 
-      meta.setAttribute(
-        "content",
-        Config.metaDescription
-      );
+      if (
+        !meta
+          .getAttribute("content")
+          ?.trim()
+      ) {
+        meta.setAttribute(
+          "content",
+          Config.metaDescription
+        );
+      }
     }
 
 
@@ -2013,6 +2019,136 @@
     );
   };
 
+  const contactFieldRules = {
+    name: {
+      minLength: 2,
+      message:
+        "Please enter a valid name."
+    },
+    message: {
+      minLength: 10,
+      message:
+        "Please add a little more detail about your goal."
+    }
+  };
+
+  const validateContactField =
+    (field) => {
+      const rule =
+        contactFieldRules[field?.name];
+
+      if (!rule) {
+        return;
+      }
+
+      const value =
+        field.value.trim();
+
+      if (
+        value !== ""
+        && value.length <
+          rule.minLength
+      ) {
+        field.setCustomValidity(
+          rule.message
+        );
+      }
+    };
+
+  const findFieldError =
+    (field) =>
+      field?.parentElement
+        ? qs(
+            ".form-error",
+            field.parentElement
+          )
+        : null;
+
+  const ensureFieldError =
+    (field) => {
+      if (!field?.parentElement) {
+        return null;
+      }
+
+      let error =
+        findFieldError(field);
+
+      if (!error) {
+        error =
+          doc.createElement("div");
+
+        error.className =
+          "form-error";
+
+        if (field.id) {
+          error.id =
+            `${field.id}-error`;
+
+          const describedBy =
+            (
+              field.getAttribute(
+                "aria-describedby"
+              ) || ""
+            )
+              .split(/\s+/)
+              .filter(Boolean);
+
+          if (
+            !describedBy.includes(
+              error.id
+            )
+          ) {
+            describedBy.push(
+              error.id
+            );
+
+            field.setAttribute(
+              "aria-describedby",
+              describedBy.join(" ")
+            );
+          }
+        }
+
+        field.insertAdjacentElement(
+          "afterend",
+          error
+        );
+      }
+
+      return error;
+    };
+
+  const setFieldError = (
+    field,
+    message = ""
+  ) => {
+    const error = message
+      ? ensureFieldError(field)
+      : findFieldError(field);
+
+    if (error) {
+      error.textContent =
+        message;
+    }
+
+    setFieldState(
+      field,
+      !message && field.validity.valid
+    );
+  };
+
+  const clearFieldError =
+    (field) => {
+      field.setCustomValidity("");
+
+      const error =
+        findFieldError(field);
+
+      if (error) {
+        error.textContent = "";
+      }
+    };
+
 
   const initFormFieldStates =
     () => {
@@ -2022,14 +2158,13 @@
         field.addEventListener(
           "input",
           () => {
-            if (
+            clearFieldError(field);
+            validateContactField(field);
+
+            setFieldState(
+              field,
               field.validity.valid
-            ) {
-              setFieldState(
-                field,
-                true
-              );
-            }
+            );
           }
         );
 
@@ -2142,11 +2277,15 @@
             );
 
           fields.forEach(
-            (field) =>
+            (field) => {
+              clearFieldError(field);
+              validateContactField(field);
+
               setFieldState(
                 field,
                 field.validity.valid
               )
+            }
           );
 
           if (
@@ -2246,6 +2385,49 @@
               !response.ok ||
               explicitFailure
             ) {
+              if (
+                response.status === 422
+                && data?.errors
+              ) {
+                Object.entries(
+                  data.errors
+                ).forEach(
+                  ([
+                    name,
+                    message
+                  ]) => {
+                    const field =
+                      fields.find(
+                        (item) =>
+                          item.name ===
+                          name
+                      );
+
+                    if (!field) {
+                      return;
+                    }
+
+                    field.setCustomValidity(
+                      String(message)
+                    );
+
+                    setFieldError(
+                      field,
+                      String(message)
+                    );
+                  }
+                );
+
+                const invalid =
+                  fields.find(
+                    (field) =>
+                      !field.validity.valid
+                  );
+
+                invalid?.focus();
+                invalid?.reportValidity();
+              }
+
               throw new Error(
                 data?.message ||
                 Config.contact
