@@ -1,0 +1,274 @@
+<svg
+  width="260"
+  height="390"
+  viewBox="0 0 260 390"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <title>Performance Rocket</title>
+
+  
+
+
+
+  <g class="rocket-detail-lines" opacity="0.72">
+    <path
+      d="M64 169C45 181 34 201 30 225"
+      stroke="#FFB21A"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+
+    <path
+      d="M196 169C215 181 226 201 230 225"
+      stroke="#FFB21A"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+
+    <path
+      d="M45 144L29 135"
+      stroke="#FF482F"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+
+    <path
+      d="M215 144L231 135"
+      stroke="#FF482F"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+
+    <path
+      d="M54 115L42 98"
+      stroke="#FFB21A"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+
+    <path
+      d="M206 115L218 98"
+      stroke="#FFB21A"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+  </g>
+
+
+  
+
+
+
+  <g class="rocket">
+
+    
+    <path
+      class="rocket__nose"
+      d="M130 26C102 48 83 76 76 111H184C177 76 158 48 130 26Z"
+      fill="#FF482F"
+    />
+
+    
+    <path
+      class="rocket__body"
+      d="M76 111
+         C72 134 72 163 76 190
+         C80 217 91 242 108 263
+         H152
+         C169 242 180 217 184 190
+         C188 163 188 134 184 111
+         H76Z"
+      fill="#F4F1EA"
+    />
+
+    
+    <path
+      class="rocket__panel"
+      d="M113 105
+         C111 131 111 159 114 187
+         C116 208 121 228 130 246
+         C139 228 144 208 146 187
+         C149 159 149 131 147 105
+         H113Z"
+      fill="#FFB21A"
+    />
+
+    
+    <path
+      d="M130 26
+         C102 48 83 76 76 111
+         C72 134 72 163 76 190
+         C80 217 91 242 108 263
+         H152
+         C169 242 180 217 184 190
+         C188 163 188 134 184 111
+         C177 76 158 48 130 26Z"
+      stroke="#151515"
+      stroke-width="4"
+      stroke-linejoin="round"
+    />
+
+
+    
+
+
+
+    <g class="rocket__window">
+      <circle
+        cx="130"
+        cy="112"
+        r="26"
+        fill="#151515"
+      />
+
+      <circle
+        cx="130"
+        cy="112"
+        r="17"
+        fill="#FF482F"
+      />
+
+      <circle
+        cx="124"
+        cy="106"
+        r="4"
+        fill="#F4F1EA"
+      />
+    </g>
+
+
+    
+
+
+
+    <path
+      class="rocket__fin rocket__fin--left"
+      d="M79 178
+         C57 192 45 215 43 244
+         L89 224
+         C84 210 81 195 79 178Z"
+      fill="#FF482F"
+      stroke="#151515"
+      stroke-width="4"
+      stroke-linejoin="round"
+    />
+
+
+    
+
+
+
+    <path
+      class="rocket__fin rocket__fin--right"
+      d="M181 178
+         C203 192 215 215 217 244
+         L171 224
+         C176 210 179 195 181 178Z"
+      fill="#FF482F"
+      stroke="#151515"
+      stroke-width="4"
+      stroke-linejoin="round"
+    />
+
+
+    
+
+
+
+    <path
+      class="rocket__engine"
+      d="M108 263H152L146 281H114L108 263Z"
+      fill="#151515"
+    />
+
+
+    
+
+
+
+
+    <g class="rocket-flame">
+
+      <path
+        class="rocket-flame__outer"
+        d="M113 279
+           C105 305 110 333 130 361
+           C150 333 155 305 147 279
+           H113Z"
+        fill="#FF482F"
+      />
+
+      <path
+        class="rocket-flame__middle"
+        d="M120 280
+           C116 301 120 322 130 342
+           C140 322 144 301 140 280
+           H120Z"
+        fill="#FFB21A"
+      />
+
+      <path
+        class="rocket-flame__core"
+        d="M126 282
+           C124 296 125 309 130 321
+           C135 309 136 296 134 282
+           H126Z"
+        fill="#F4F1EA"
+      />
+
+    </g>
+  </g>
+
+
+  
+
+
+
+  <g class="rocket-particles">
+
+    <circle
+      cx="76"
+      cy="74"
+      r="4"
+      fill="#FFB21A"
+    />
+
+    <circle
+      cx="200"
+      cy="68"
+      r="3"
+      fill="#FF482F"
+    />
+
+    <circle
+      cx="45"
+      cy="189"
+      r="3"
+      fill="#FF482F"
+    />
+
+    <circle
+      cx="222"
+      cy="190"
+      r="4"
+      fill="#FFB21A"
+    />
+
+    <circle
+      cx="57"
+      cy="281"
+      r="2.5"
+      fill="#FFB21A"
+    />
+
+    <circle
+      cx="205"
+      cy="291"
+      r="2.5"
+      fill="#FF482F"
+    />
+
+  </g>
+
+</svg>

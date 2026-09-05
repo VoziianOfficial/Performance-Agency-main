@@ -1,0 +1,38 @@
+Performance Agency Vendor Bundle
+================================
+
+AOS
+Version: 2.3.4
+Files:
+- aos/aos.css
+- aos/aos.js
+
+Swiper
+Version: 14.2.0
+Files:
+- swiper/swiper-bundle.min.css
+- swiper/swiper-bundle.min.js
+
+GSAP
+Version: 3.15.0
+Files:
+- gsap/gsap.min.js
+- gsap/ScrollTrigger.min.js
+- gsap/MotionPathPlugin.min.js
+- gsap/ScrollToPlugin.min.js
+
+Lenis
+Version: 1.3.26
+Files:
+- lenis/lenis.min.js
+- lenis/lenis.css
+
+Lucide
+Version: 1.39.0
+Files:
+- lucide/lucide.min.js
+
+SplitType
+Version: 0.3.4
+Files:
+- split-type/split-type.min.js
