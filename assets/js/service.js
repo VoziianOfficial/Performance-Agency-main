@@ -1842,16 +1842,17 @@
                   }
                 : undefined,
 
-            pagination:
-              pagination
-                ? {
+            ...(pagination
+              ? {
+                  pagination: {
                     el:
                       pagination,
 
                     clickable:
                       true
                   }
-                : undefined,
+                }
+              : {}),
 
             autoplay:
               (

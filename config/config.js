@@ -36,6 +36,12 @@
 
   const route = (path = "") => `${ROOT}${path}`;
 
+  const COMPANY_NAME = "Averon Performance";
+
+  const COMPANY_SHORT_NAME = "Averon";
+
+  const SITE_EMAIL = "hello@averonperformance.com";
+
 
   
 
@@ -46,15 +52,15 @@
 
 
 
-    companyName: "Averon Performance",
+    companyName: COMPANY_NAME,
 
-    companyShortName: "Averon",
+    companyShortName: COMPANY_SHORT_NAME,
 
     logo: route("assets/icons/logo.svg"),
 
     favicon: route("assets/icons/favicon.svg"),
 
-    email: "hello@averonperformance.com",
+    email: SITE_EMAIL,
 
 
     
@@ -64,7 +70,7 @@
     titleSeparator: " | ",
 
     browserTitle:
-      "Averon Performance | Google Ads & Performance Marketing",
+      `${COMPANY_NAME} | Google Ads & Performance Marketing`,
 
     metaDescription:
       "Performance marketing agency focused on Google Ads, lead generation, e-commerce growth, conversion tracking and marketing automation.",
@@ -583,7 +589,7 @@
 
     preloader: {
       name:
-        "Averon",
+        COMPANY_SHORT_NAME,
 
       label:
         "Performance",
@@ -605,10 +611,10 @@
         "Performance marketing systems built around advertising data, qualified demand and measurable business growth.",
 
       disclaimer:
-        "Averon Performance is an independent performance marketing agency. Advertising performance varies by business, market, budget, competition, website quality and other factors. No specific advertising result, lead volume, revenue level, CPA, CPL or ROAS is guaranteed.",
+        `${COMPANY_NAME} is an independent performance marketing agency. Advertising performance varies by business, market, budget, competition, website quality and other factors. No specific advertising result, lead volume, revenue level, CPA, CPL or ROAS is guaranteed.`,
 
       copyright:
-        `© ${new Date().getFullYear()} Averon Performance. All rights reserved.`
+        `© ${new Date().getFullYear()} ${COMPANY_NAME}. All rights reserved.`
     },
 
 

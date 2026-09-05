@@ -388,9 +388,75 @@
     qsa(selector).forEach(
       (element) => {
         element.textContent =
-          String(value);
+          `${String(value)}${element.dataset.textSuffix || ""}`;
       }
     );
+  };
+
+
+  const setElementText = (
+    element,
+    value
+  ) => {
+    if (
+      !element ||
+      value === undefined ||
+      value === null
+    ) {
+      return;
+    }
+
+    const text =
+      String(value);
+
+    const textNode =
+      Array.from(
+        element.childNodes
+      ).find(
+        (node) =>
+          node.nodeType ===
+            Node.TEXT_NODE &&
+          node.textContent.trim()
+      );
+
+    if (textNode) {
+      textNode.textContent =
+        text;
+
+      return;
+    }
+
+    element.insertBefore(
+      doc.createTextNode(text),
+      element.firstChild
+    );
+  };
+
+
+  const getNavigationLabel = (
+    key
+  ) => (
+    Config.navigation || []
+  ).find(
+    (item) => item.key === key
+  )?.label;
+
+
+  const getLegalLabel = (
+    key
+  ) => {
+    const labels = {
+      privacy:
+        Config.legal?.privacyLabel,
+
+      terms:
+        Config.legal?.termsLabel,
+
+      cookies:
+        Config.legal?.cookiesLabel
+    };
+
+    return labels[key];
   };
 
 
@@ -432,13 +498,20 @@
       new Date().getFullYear()
     );
 
+    setText(
+      "[data-transition-name]",
+      Config.preloader?.name ||
+        Config.companyShortName ||
+        Config.companyName
+    );
+
 
     
 
 
 
     qsa(
-      "[data-site-email-link]"
+      "[data-site-email-link], [data-legal-email]"
     ).forEach((link) => {
       link.textContent =
         Config.email || "";
@@ -455,6 +528,15 @@
 
 
     qsa("[data-site-logo]")
+      .forEach((image) => {
+        if (Config.logo) {
+          image.src = Config.logo;
+        }
+
+        image.alt = "";
+      });
+
+    qsa("[data-transition-logo]")
       .forEach((image) => {
         if (Config.logo) {
           image.src = Config.logo;
@@ -481,6 +563,56 @@
         if (route) {
           link.href = route;
         }
+      });
+
+    qsa('[data-route="home"][aria-label]')
+      .forEach((link) => {
+        const label =
+          getNavigationLabel("home");
+
+        if (label) {
+          link.setAttribute(
+            "aria-label",
+            label
+          );
+        }
+      });
+
+    qsa(
+      ".site-nav__link[data-route], " +
+      ".mobile-menu__link[data-route], " +
+      ".site-footer__link[data-route], " +
+      ".legal-page-nav__link[data-route]"
+    ).forEach((link) => {
+      const key =
+        link.dataset.route;
+
+      const label =
+        getNavigationLabel(key) ||
+        getLegalLabel(key);
+
+      if (label) {
+        setElementText(
+          link,
+          label
+        );
+      }
+    });
+
+    qsa("[href^='mailto:']")
+      .forEach((link) => {
+        if (Config.email) {
+          link.href =
+            `mailto:${Config.email}`;
+        }
+      });
+
+    qsa("[data-site-email-href]")
+      .forEach((link) => {
+        link.href =
+          Config.email
+            ? `mailto:${Config.email}`
+            : "#";
       });
 
 
@@ -543,6 +675,20 @@
       }
 
       form.method = "post";
+
+      const submit =
+        qs(
+          '[type="submit"]',
+          form
+        );
+
+      if (
+        submit &&
+        Config.contact?.submitLabel
+      ) {
+        submit.textContent =
+          Config.contact.submitLabel;
+      }
     });
   };
 

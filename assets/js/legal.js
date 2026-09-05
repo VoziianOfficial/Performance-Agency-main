@@ -33,6 +33,8 @@
 
   const doc = document;
   const body = doc.body;
+  const Config =
+    window.SiteConfig || {};
 
   const qs = (
     selector,

@@ -26,6 +26,16 @@ header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
 header('Referrer-Policy: strict-origin-when-cross-origin');
 
+$serverConfig = require __DIR__
+    . DIRECTORY_SEPARATOR
+    . 'config'
+    . DIRECTORY_SEPARATOR
+    . 'server-config.php';
+
+if (!is_array($serverConfig)) {
+    $serverConfig = [];
+}
+
 
 
 
@@ -427,124 +437,6 @@ function encode_mail_subject(
 
 
 
-function get_config_email(): string
-{
-    $fallback = 'hello@averonperformance.com';
-
-    $configPath =
-        __DIR__
-        . DIRECTORY_SEPARATOR
-        . 'config'
-        . DIRECTORY_SEPARATOR
-        . 'config.js';
-
-    if (!is_file($configPath)) {
-        return $fallback;
-    }
-
-    $configContent =
-        @file_get_contents(
-            $configPath
-        );
-
-    if (
-        $configContent === false
-        || $configContent === ''
-    ) {
-        return $fallback;
-    }
-
-    
-
-
-
-
-
-
-    $matched = preg_match(
-        '/(?:^|\R)\s*email\s*:\s*["\']([^"\']+)["\']/u',
-        $configContent,
-        $matches
-    );
-
-    if (
-        $matched === 1
-        && isset($matches[1])
-    ) {
-        $email = trim(
-            (string) $matches[1]
-        );
-
-        if (
-            filter_var(
-                $email,
-                FILTER_VALIDATE_EMAIL
-            )
-        ) {
-            return $email;
-        }
-    }
-
-    return $fallback;
-}
-
-
-
-
-
-function get_sender_email(): string
-{
-    $host =
-        isset($_SERVER['HTTP_HOST'])
-            ? (string) $_SERVER['HTTP_HOST']
-            : 'localhost';
-
-    
-
-
-    $host = preg_replace(
-        '/:\d+$/',
-        '',
-        $host
-    ) ?? $host;
-
-    
-
-
-    $host = preg_replace(
-        '/^www\./i',
-        '',
-        $host
-    ) ?? $host;
-
-    
-
-
-    $host = preg_replace(
-        '/[^a-z0-9.-]/i',
-        '',
-        $host
-    ) ?? '';
-
-    
-
-
-    if (
-        $host === ''
-        || $host === 'localhost'
-        || strpos($host, '.') === false
-    ) {
-        return 'no-reply@localhost';
-    }
-
-    return 'no-reply@' . $host;
-}
-
-
-
-
-
-
 if (
     ($_SERVER['REQUEST_METHOD'] ?? '')
     !== 'POST'
@@ -927,10 +819,66 @@ if (!empty($errors)) {
 
 
 $recipient =
-    get_config_email();
+    trim(
+        (string) (
+            $serverConfig['email']
+            ?? ''
+        )
+    );
 
-$senderEmail =
-    get_sender_email();
+if (
+    !filter_var(
+        $recipient,
+        FILTER_VALIDATE_EMAIL
+    )
+) {
+    error_log(
+        '[Contact Form] Invalid or missing recipient email in server config.'
+    );
+
+    respond(
+        false,
+        'We could not send your request right now. Please try again or contact us by email.',
+        500
+    );
+}
+
+$fromEmail =
+    trim(
+        (string) (
+            $serverConfig['fromEmail']
+            ?? ''
+        )
+    );
+
+if (
+    !filter_var(
+        $fromEmail,
+        FILTER_VALIDATE_EMAIL
+    )
+) {
+    error_log(
+        '[Contact Form] Invalid or missing fromEmail in server config.'
+    );
+
+    respond(
+        false,
+        'We could not send your request right now. Please try again or contact us by email.',
+        500
+    );
+}
+
+$companyShortName =
+    trim(
+        (string) (
+            $serverConfig['companyShortName']
+            ?? 'Website'
+        )
+    );
+
+if ($companyShortName === '') {
+    $companyShortName = 'Website';
+}
 
 $subject =
     'New website enquiry — '
@@ -1015,7 +963,7 @@ $safeReplyTo =
 
 $safeSender =
     strip_header_breaks(
-        $senderEmail
+        $fromEmail
     );
 
 
@@ -1026,7 +974,11 @@ $headers = [
 
     'Content-Transfer-Encoding: 8bit',
 
-    'From: Averon Website <'
+    'From: '
+        . strip_header_breaks(
+            $companyShortName
+        )
+        . ' Website <'
         . $safeSender
         . '>',
 
@@ -1077,7 +1029,11 @@ if (!$sent) {
 
 
     error_log(
-        '[Averon Contact Form] mail() failed. Recipient: '
+        '['
+        . strip_header_breaks(
+            $companyShortName
+        )
+        . ' Contact Form] mail() failed. Recipient: '
         . $recipient
     );
 
