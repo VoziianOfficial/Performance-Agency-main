@@ -230,7 +230,7 @@
 
   margin-bottom: 20px;
 
-  color: var(--color-accent);
+  color: var(--color-accent-light);
 
   font-size: 14px;
   font-weight: 500;
@@ -588,7 +588,7 @@
 
   border:
     1px solid
-    rgba(255, 72, 47, 0.45);
+    rgba(217, 233, 151, 0.45);
 
   border-radius: 50%;
 
@@ -703,7 +703,7 @@
     translateY(-7px);
 
   border-color:
-    rgba(255, 72, 47, 0.48);
+    rgba(217, 233, 151, 0.48);
 
   background: #1c1c1c;
 }
@@ -735,7 +735,7 @@
 
   border:
     1px solid
-    rgba(255, 72, 47, 0.42);
+    rgba(217, 233, 151, 0.42);
 
   border-radius: 50%;
 
@@ -861,7 +861,7 @@
 
 .service-process__step:hover {
   border-color:
-    rgba(255, 72, 47, 0.38);
+    rgba(217, 233, 151, 0.38);
 }
 
 .service-process__step-number {
@@ -903,7 +903,7 @@
   background: #1d1d1d;
 
   border-color:
-    rgba(255, 72, 47, 0.35);
+    rgba(217, 233, 151, 0.35);
 }
 
 .service-process__step.is-active

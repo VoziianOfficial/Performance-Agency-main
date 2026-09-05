@@ -1,36 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 :root {
   --color-bg: #111111;
   --color-bg-2: #151515;
@@ -48,9 +16,10 @@
   --color-text-soft: #c6c5c1;
   --color-muted: #8d8c88;
 
-  --color-accent: #ff482f;
-  --color-accent-hover: #ee3923;
-  --color-accent-soft: rgba(255, 72, 47, 0.14);
+  --color-accent: #5C743B;
+  --color-accent-light: #D9E997;
+  --color-accent-hover: #4f6532;
+  --color-accent-soft: rgba(217, 233, 151, 0.16);
 
   --color-warm: #ffb21a;
   --color-dark: #0b0b0b;
@@ -439,7 +408,7 @@ p {
 
   margin-bottom: 18px;
 
-  color: var(--color-accent);
+  color: var(--color-accent-light);
 
   font-family: var(--font-body);
   font-size: 14px;
@@ -885,11 +854,11 @@ p {
 
   padding: 0;
 
-  border: 1px solid rgba(255, 72, 47, 0.72);
+  border: 1px solid rgba(217, 233, 151, 0.72);
   border-radius: 50%;
 
   background: transparent;
-  color: var(--color-accent);
+  color: var(--color-accent-light);
 
   cursor: pointer;
 
@@ -1160,7 +1129,7 @@ p {
 
 .surface-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(255, 72, 47, 0.35);
+  border-color: rgba(217, 233, 151, 0.35);
 }
 
 .surface-card--quiet:hover {
@@ -1249,10 +1218,10 @@ select.form-control {
 }
 
 .form-control:focus {
-  border-color: rgba(255, 72, 47, 0.72);
+  border-color: rgba(217, 233, 151, 0.72);
 
   box-shadow:
-    0 0 0 3px rgba(255, 72, 47, 0.09);
+    0 0 0 3px rgba(217, 233, 151, 0.09);
 }
 
 .form-control.is-invalid {
@@ -1292,7 +1261,7 @@ select.form-control {
 }
 
 .form-status.is-error {
-  border-color: rgba(255, 72, 47, 0.42);
+  border-color: rgba(217, 233, 151, 0.42);
 }
 
 

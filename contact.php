@@ -160,7 +160,7 @@ function html_response(
             display: grid;
             place-items: center;
             border-radius: 50%;
-            background: #ff482f;
+            background: #5C743B;
             font-size: 24px;
         }
 
@@ -186,7 +186,7 @@ function html_response(
             margin-top: 28px;
             padding: 12px 24px;
             border-radius: 999px;
-            background: #ff482f;
+            background: #5C743B;
             color: #ffffff;
             text-decoration: none;
             font-weight: 600;
